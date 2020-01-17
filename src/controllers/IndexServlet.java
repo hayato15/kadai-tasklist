@@ -42,6 +42,12 @@ public class IndexServlet extends HttpServlet {
         //index_viewへのリクエストスコープにtasksを代入
         request.setAttribute("tasks", tasks);
 
+        //フラッシュメッセージをセッションスコープからリクエストスコープへ
+        if(request.getSession().getAttribute("flush") != null){
+            request.setAttribute("flush",request.getSession().getAttribute("flush"));
+            request.getSession().removeAttribute("flush");
+        }
+
         //index.jspを呼び出す
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/tasks/index.jsp");
         //レスポンスを返す
